@@ -87,6 +87,18 @@ subprojects {
                 println buildArgs
             }
         }
+
+        docker {
+            if(System.getenv("DOCKER_USER") != null) {
+                registryCredentials {
+                    username = System.getenv("DOCKER_USER")
+                    password = System.getenv("DOCKER_PASSWORD")
+                }
+            } else {
+                println "using default credentials"
+            }
+        }
+        
         composeDown.enabled = false
     } else if ("${project.share.flavor}" == "enterprise" || ("${project.share.flavor}" == "community")) {
 
