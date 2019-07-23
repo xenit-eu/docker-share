@@ -101,6 +101,11 @@ subprojects {
             createDockerFile.dependsOn(path)
         }
 
+        createDockerFile {
+            environmentVariable('SHARE_FLAVOR', "${project.share.flavor}")
+            environmentVariable('SHARE_VERSION', "${project.share.version.major}.${project.share.version.minor}.${project.share.version.rev}")
+        }
+
         dockerCompose.dependsOn(buildDockerImage)
 
         docker {
