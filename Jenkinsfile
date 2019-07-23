@@ -3,24 +3,7 @@ pipeline {
     stages {
         stage("Build Docker Image") {
             steps {
-                sh "./gradlew buildDockerImage"
-            }
-        }
-
-        stage("Unit Tests") {
-            steps {
-                sh "./gradlew test"
-            }
-        }
-
-        stage("Integration Tests") {
-            steps {
-                sh "./gradlew integrationTests --info"
-            }
-            post {
-                always {
-                    sh "./gradlew composeDown"
-                }
+                sh "./gradlew -Penterprise buildDockerImage"
             }
         }
 
@@ -32,7 +15,7 @@ pipeline {
                 }
             }
             steps {
-                sh "./gradlew pushDockerImage"
+                sh "./gradlew -Penterprise pushDockerImage"
             }
         }
     }

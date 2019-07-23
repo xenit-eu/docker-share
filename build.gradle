@@ -55,7 +55,10 @@ subprojects {
         dockerFile {
             dockerFile = file("$workingDir/Dockerfile")
             dockerBuild {
-                repository = "xeniteu/alfresco-share-" + "${project.share.flavor}"
+                if (!(project.hasProperty("repoName"))) {
+                    ext.repoName = "hub.xenit.eu"
+                }
+                repository = "${repoName}" + "/alfresco-share-" + "${project.share.flavor}"
                 tags = calcTags(project.share.version)
                 automaticTags = false
             }
@@ -86,7 +89,10 @@ subprojects {
         dockerAlfresco {
             baseImage = { project(skeleton).getTasks().getByName('buildDockerImage').getImageId() }
             dockerBuild {
-                repository = "xeniteu/alfresco-share-" + "${project.share.flavor}"
+                if (!(project.hasProperty("repoName"))) {
+                    ext.repoName = "hub.xenit.eu"
+                }
+                repository = "${repoName}" + "/alfresco-share-" + "${project.share.flavor}"
                 tags = calcTags(project.share.version)
             }
         }
@@ -96,6 +102,17 @@ subprojects {
         }
 
         dockerCompose.dependsOn(buildDockerImage)
+
+        docker {
+            if(System.getenv("DOCKER_USER") != null) {
+                registryCredentials {
+                    username = System.getenv("DOCKER_USER")
+                    password = System.getenv("DOCKER_PASSWORD")
+                }
+            } else {
+                println "using default credentials"
+            }
+        }
     }
 }
 
