@@ -16,6 +16,13 @@ static def calcTags(version) {
 
 subprojects {
     apply plugin: 'java'
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url 'https://artifacts.alfresco.com/nexus/content/repositories/public/'
+        }
+    }
 
     if ("${project.projectDir}".toLowerCase().contains('skeleton')) {
         apply plugin: 'eu.xenit.docker'
