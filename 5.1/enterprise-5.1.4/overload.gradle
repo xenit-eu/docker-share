@@ -3,8 +3,7 @@ ext {
             version: [
                     major: 5,
                     minor: 1,
-                    rev: 4,
-                    label: 1,
+                    rev: '4.1'
             ],
             flavor: 'enterprise'
     ]
