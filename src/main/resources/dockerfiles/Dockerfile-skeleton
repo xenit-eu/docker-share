@@ -16,7 +16,7 @@ USER	root
 
 RUN	mkdir -p /opt/alfresco && \
 	apt-get update && \
-	apt-get install -y curl vim locate jq less && \
+	apt-get install -y curl vim locate jq less gettext-base && \
 	rm -rf ${CATALINA_HOME}/webapps/* && \
 	mkdir -p ${CATALINA_HOME}/bin && \
 	touch ${CATALINA_HOME}/bin/setenv.sh && \

@@ -17,7 +17,12 @@ ALFRESCO_PORT=${ALFRESCO_PORT:-8080}
 ALFRESCO_PROTOCOL=${ALFRESCO_PROTOCOL:-http}
 ALFRESCO_CONTEXT=${ALFRESCO_CONTEXT:-alfresco}
 
-sed -e 's/http:\/\/localhost:8080\/alfresco/'"$ALFRESCO_PROTOCOL"':\/\/'"$ALFRESCO_HOST"':'"$ALFRESCO_PORT"'\/'"$ALFRESCO_CONTEXT"'/g' </docker-config/share-config-custom.xml >"${CATALINA_HOME}/shared/classes/alfresco/web-extension/share-config-custom.xml"
+export ALFRESCO_HOST
+export ALFRESCO_PORT
+export ALFRESCO_PROTOCOL
+export ALFRESCO_CONTEXT
+
+envsubst </docker-config/share-config-custom.xml >"${CATALINA_HOME}/shared/classes/alfresco/web-extension/share-config-custom.xml"
 
 setJavaOption "defaults" "-Xms$JAVA_XMS -Xmx$JAVA_XMX -Dfile.encoding=UTF-8"
 
