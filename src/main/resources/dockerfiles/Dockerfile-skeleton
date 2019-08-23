@@ -16,24 +16,24 @@ USER	root
 
 RUN	mkdir -p /opt/alfresco && \
 	apt-get update && \
-	apt-get install -y curl vim locate jq less && \
+	apt-get install -y curl vim locate jq less gettext-base && \
 	rm -rf ${CATALINA_HOME}/webapps/* && \
 	mkdir -p ${CATALINA_HOME}/bin && \
 	touch ${CATALINA_HOME}/bin/setenv.sh && \
- 	mkdir -p ${CATALINA_HOME}/shared/classes/alfresco/web-extension/
-ADD 	share-config-custom.xml ${CATALINA_HOME}/shared/classes/alfresco/web-extension/
+	mkdir -p ${CATALINA_HOME}/shared/classes/alfresco/web-extension/ && \
+	mkdir -p /docker-config/
+ADD	 share-config-custom.xml /docker-config/
 
 # copy init file
 RUN	mkdir -p /docker-entrypoint.d
-COPY 	91-init-share.sh /docker-entrypoint.d/
+COPY	 91-init-share.sh /docker-entrypoint.d/
 RUN	chmod u+x /docker-entrypoint.d/91-init-share.sh && \
-	
-# permissions
- 	chown -hR tomcat /opt/alfresco && \
-	chown -hR tomcat ${CATALINA_HOME} 
+	# permissions
+	chown -hR tomcat /opt/alfresco && \
+	chown -hR tomcat ${CATALINA_HOME}
 
 # named volumes
-VOLUME 	${CATALINA_HOME}/temp ${CATALINA_HOME}/logs
+VOLUME	 ${CATALINA_HOME}/temp ${CATALINA_HOME}/logs
 
 WORKDIR /opt/alfresco
 

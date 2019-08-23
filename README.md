@@ -52,6 +52,8 @@ Environment variables:
 | JMX_RMI_HOST                |                                 |                                                              |  0.0.0.0                                                            |  |
 | JAVA_OPTS_\<variable\>=\<value\>       |                      | \<value\>                                                   |                                                              |  |
 
+If environment variables are not sufficient to cover the use-case desired, a custom share-config-custom.xml file can be mounted in /docker-config/share-config-custom.xml.
+
 ## Docker-compose files
 
 For example docker-compose files, see [docker-alfresco](https://github.com/xenit-eu/docker-alfresco).

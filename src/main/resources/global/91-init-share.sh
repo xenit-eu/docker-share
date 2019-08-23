@@ -17,7 +17,12 @@ ALFRESCO_PORT=${ALFRESCO_PORT:-8080}
 ALFRESCO_PROTOCOL=${ALFRESCO_PROTOCOL:-http}
 ALFRESCO_CONTEXT=${ALFRESCO_CONTEXT:-alfresco}
 
-sed -i -e 's/http:\/\/localhost:8080\/alfresco/'"$ALFRESCO_PROTOCOL"':\/\/'"$ALFRESCO_HOST"':'"$ALFRESCO_PORT"'\/'"$ALFRESCO_CONTEXT"'/g' ${CATALINA_HOME}/shared/classes/alfresco/web-extension/share-config-custom.xml
+export ALFRESCO_HOST
+export ALFRESCO_PORT
+export ALFRESCO_PROTOCOL
+export ALFRESCO_CONTEXT
+
+envsubst </docker-config/share-config-custom.xml >"${CATALINA_HOME}/shared/classes/alfresco/web-extension/share-config-custom.xml"
 
 setJavaOption "defaults" "-Xms$JAVA_XMS -Xmx$JAVA_XMX -Dfile.encoding=UTF-8"
 
@@ -26,14 +31,11 @@ then
     setJavaOption "debug" "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:8000"
 fi
 
-
 if [ $JMX_ENABLED = true ]
 then
     # be sure port 5000 is mapped on the host also on 5000
     setJavaOption "jmx" "-Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.rmi.port=5000 -Dcom.sun.management.jmxremote.port=5000 -Djava.rmi.server.hostname=${JMX_RMI_HOST}"
 fi
-
-setJavaOptions
 
 echo "Share init done"
 
