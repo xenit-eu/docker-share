@@ -65,7 +65,10 @@ subprojects {
                 if (!(project.hasProperty("repoName"))) {
                     ext.repoName = "hub.xenit.eu"
                 }
-                repository = "${repoName}" + "/alfresco-share-" + "${project.share.flavor}"
+		def namespace = (project.share.flavor == "enterprise" ? "alfresco-enterprise" : "public");
+		repository = ((repoName == "hub.xenit.eu") ?
+			      "${repoName}" + "/" + namespace + "/" + "alfresco-share-${project.share.flavor}" :
+			      "${repoName}" + "/" + "alfresco-share-${project.share.flavor}")
                 tags = calcTags(project.share.version)
                 automaticTags = false
             }
@@ -111,7 +114,10 @@ subprojects {
                 if (!(project.hasProperty("repoName"))) {
                     ext.repoName = "hub.xenit.eu"
                 }
-                repository = "${repoName}" + "/alfresco-share-" + "${project.share.flavor}"
+		def namespace = (project.share.flavor == "enterprise" ? "alfresco-enterprise" : "public");
+		repository = ((repoName == "hub.xenit.eu") ?
+			      "${repoName}" + "/" + namespace + "/" + "alfresco-share-${project.share.flavor}" :
+			      "${repoName}" + "/" + "alfresco-share-${project.share.flavor}")		
                 tags = calcTags(project.share.version)
                 automaticTags = false
             }
