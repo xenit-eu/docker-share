@@ -8,43 +8,37 @@
  * in the user guide at https://docs.gradle.org/4.0/userguide/multi_project_builds.html
  */
 
-/*
-// To declare projects as part of a multi-project build use the 'include' method
-include 'shared'
-include 'api'
-include 'services:webservice'
-*/
+def includeSubprojectPerVersion(major,flavor) {
+    new File("$rootProject.projectDir/2share")
+            .listFiles({ File version -> version.name.startsWith(major)
+            } as FileFilter)
+
+            .collectMany ({ File versionflavor ->
+                versionflavor.listFiles({ File file -> file.name.contains(flavor)
+                } as FileFilter).toList()
+            })
+
+            .each { File projectFile ->
+                def version = projectFile.parentFile.name
+                def revision = projectFile.name
+                def projectShare = "2share:${revision}"
+                def projectSkeleton = "1skeleton:${version}"
+
+                include projectSkeleton
+                project(":${projectSkeleton}").projectDir = file("1skeleton/${version}")
+                include projectShare
+                project(":${projectShare}").projectDir = file("2share/${version}/${revision}")
+            }
+}
 
 rootProject.name = 'docker-share'
 
-include '4.2/skeleton'
-include '4.2/community-4.2.f'
-
-include '5.0/skeleton'
-include '5.0/community-5.0.d'
-
-include '5.1/skeleton'
-include '5.1/community-5.1.e'
-
-include '5.2/skeleton'
-include '5.2/community-5.2.f'
-
-include '6.0/skeleton'
-include '6.0/community-6.0.c'
-include '6.0/community-6.0.1'
-
-include '6.1/skeleton'
-include '6.1/community-6.1.0'
-
+includeSubprojectPerVersion("4.","community")
+includeSubprojectPerVersion("5.","community")
+includeSubprojectPerVersion("6.","community")
 if(hasProperty("enterprise")) {
-    include '4.2/enterprise-4.2.8'
-    include '5.0/enterprise-5.0.4'
-    include '5.1/enterprise-5.1.1'
-    include '5.1/enterprise-5.1.4'
-    include '5.1/enterprise-5.1.5'
-    include '5.2/enterprise-5.2.0'
-    include '5.2/enterprise-5.2.2'
-    include '5.2/enterprise-5.2.3'
-    include '5.2/enterprise-5.2.4'
-    include '5.2/enterprise-5.2.5'
+    includeSubprojectPerVersion("4.","enterprise")
+    includeSubprojectPerVersion("5.","enterprise")
+    includeSubprojectPerVersion("6.","enterprise")
 }
+
