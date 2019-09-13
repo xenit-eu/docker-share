@@ -1,0 +1,43 @@
+subprojects {
+    apply plugin: 'eu.xenit.docker-alfresco'
+
+    if (new File("${project.projectDir}/overload.gradle").exists())
+        apply from: "${project.projectDir}/overload.gradle"
+
+    def parentProject = project(":1skeleton:${project.share.version.major}" + "." + "${project.share.version.minor}")
+    def parentImage = parentProject.getTasks().getByName('buildDockerImage')
+
+    afterEvaluate {
+        createDockerFile.dependsOn(parentImage)
+    }
+
+    dockerAlfresco {
+        baseImage = { parentImage.getImageId() }
+        dockerBuild {
+            if (!(project.hasProperty("repoName"))) {
+                ext.repoName = "hub.xenit.eu"
+            }
+            def namespace = (project.share.flavor == "enterprise" ? "alfresco-enterprise" : "public");
+            repository = ((repoName == "hub.xenit.eu") ?
+                    "${repoName}" + "/" + namespace + "/" + "alfresco-share-${project.share.flavor}" :
+                    "${repoName}" + "/" + "alfresco-share-${project.share.flavor}")
+            tags = calcTags(project.share.version)
+            automaticTags = false
+        }
+    }
+
+    createDockerFile {
+        environmentVariable('SHARE_FLAVOR', "${project.share.flavor}")
+        environmentVariable('SHARE_VERSION', "${project.share.version.major}.${project.share.version.minor}.${project.share.version.rev}")
+    }
+
+    docker {
+        if(System.getenv("DOCKER_USER") != null) {
+            registryCredentials {
+                username = System.getenv("DOCKER_USER")
+                password = System.getenv("DOCKER_PASSWORD")
+            }
+        }
+    }
+}
+

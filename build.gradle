@@ -23,10 +23,4 @@ subprojects {
             url 'https://artifacts.alfresco.com/nexus/content/repositories/public/'
         }
     }
-    
-    if ("${project.projectDir}".contains('skeleton')) {
-        apply from: "${rootProject.projectDir}/build-skeleton.gradle"
-    } else if ("${project.projectDir}".contains('enterprise') || "${project.projectDir}".contains('community')) {
-        apply from: "${rootProject.projectDir}/build-share.gradle"	
-    }
 }

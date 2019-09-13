@@ -8,14 +8,8 @@
  * in the user guide at https://docs.gradle.org/4.0/userguide/multi_project_builds.html
  */
 
-/*
-// To declare projects as part of a multi-project build use the 'include' method
-include 'shared'
-include 'api'
-include 'services:webservice'
-*/
 def includeSubprojectPerVersion(major,flavor) {
-    rootProject.projectDir
+    new File("$rootProject.projectDir/2share")
             .listFiles({ File version -> version.name.startsWith(major)
             } as FileFilter)
 
@@ -27,13 +21,13 @@ def includeSubprojectPerVersion(major,flavor) {
             .each { File projectFile ->
                 def version = projectFile.parentFile.name
                 def revision = projectFile.name
-                def projectName = "${version}-${revision}"
-                def skeleton = "${version}-skeleton"
+                def projectShare = "2share:${revision}"
+                def projectSkeleton = "1skeleton:${version}"
 
-                include skeleton
-                project(":${skeleton}").projectDir = file("${version}/skeleton")
-                include projectName
-                project(":${projectName}").projectDir = file("${version}/${revision}")
+                include projectSkeleton
+                project(":${projectSkeleton}").projectDir = file("1skeleton/${version}")
+                include projectShare
+                project(":${projectShare}").projectDir = file("2share/${version}/${revision}")
             }
 }
 
