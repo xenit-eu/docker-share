@@ -16,4 +16,4 @@ matrix:
     before_install:
     - chmod +x ./gradlew
     script:
-    - if [[ $TRAVIS_BRANCH = "master" ]] ; then ./gradlew -PrepoName=xeniteu pushDockerImage ; fi
+    - if [[ $TRAVIS_BRANCH = "master" ]] ; then ./gradlew -PrepoName=xenit pushDockerImage ; fi
