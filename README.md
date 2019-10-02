@@ -2,8 +2,8 @@
 
 ## Images created
 
-* [`xenit/share-enterprise`] = enterprise Share images
-* [`xenit/share-community`] = community Share images
+* [`docker.io/xenit/share-enterprise`] = enterprise Share images
+* [`docker.io/xenit/share-community`] = community Share images
 
 ## Supported Tags
 

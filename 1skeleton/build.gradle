@@ -46,7 +46,7 @@ subprojects {
                 'SHARE_VERSION_MINOR': "${project.share.version.minor}",
                 'SHARE_VERSION_REV'  : "${project.share.version.rev}",
                 'SHARE_FLAVOR'       : "${project.share.flavor}",
-                'BASE_IMAGE'            : "xenit/tomcat:alfresco-${project.share.version.major}.${project.share.version.minor}-ubuntu"
+                'BASE_IMAGE'            : "docker.io/xenit/tomcat:alfresco-${project.share.version.major}.${project.share.version.minor}-ubuntu"
         ]
 
         if (project.hasProperty('extraBuildArgs'))
