@@ -37,6 +37,7 @@ subprojects {
                     "${repoName}" + "/" + "alfresco-share-${project.share.flavor}")
             tags = calcTags(project.share.version)
             automaticTags = false
+            pull = true
         }
     }
 
