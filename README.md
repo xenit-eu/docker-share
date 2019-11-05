@@ -2,8 +2,10 @@
 
 ## Images created
 
-* [`xenit/share-enterprise`] = enterprise Share images
-* [`xenit/share-community`] = community Share images
+* [`docker.io/xenit/share-enterprise`] = enterprise Share images
+* [`docker.io/xenit/share-community`] = community Share images
+
+Up to Alfresco version 6, share artifacts for enterprise were protected by a login on Alfresco's Nexus. From version 6 onwards, they are public. 
 
 ## Supported Tags
 
@@ -29,7 +31,7 @@ The variables are read by an init script which further replaces them in the rele
 
 * share-config-custom.xml
 
-Additionally, tomcat and or java-specific environment variables can be used (see [`docker-tomcat`](https://github.com/xenit-eu/docker-tomcat), [`docker-openjdk`](https://github.com/xenit-eu/docker-openjdk)).
+See also environment variables from lower layers: [`docker-openjdk`](https://github.com/xenit-eu/docker-openjdk) and [`docker-tomcat`](https://github.com/xenit-eu/docker-tomcat).
 
 Environment variables:
 
@@ -39,18 +41,6 @@ Environment variables:
 | ALFRESCO_PORT               |  8080                           |  |
 | ALFRESCO_PROTOCOL           |  http                           |  |
 | ALFRESCO_CONTEXT            |  alfresco                       |  |
-| TOMCAT_PORT                 |  8080                           | -DTOMCAT_PORT                |                                                         
-| TOMCAT_PORT_SSL             |  8443                           | -DTOMCAT_PORT_SSL            |                                                         
-| TOMCAT_AJP_PORT             |  8009                           | -DTOMCAT_AJP_PORT            |                                                          
-| TOMCAT_SERVER_PORT          |  8005                           | -DTOMCAT_SERVER_PORT         |                                                          
-| TOMCAT_MAX_HTTP_HEADER_SIZE |  32768                          | -DTOMCAT_MAX_HTTP_HEADER_SIZE  or -DMAX_HTTP_HEADER_SIZE   |                                         |  |
-| TOMCAT_MAX_THREADS          |  200                            | -DTOMCAT_MAX_THREADS or -DMAX_THREADS                        |                                                           |  |
-| JAVA_XMS                    |  512                            | -Xmx                                                         |  
-| JAVA_XMX                    |  2048                           | -Xms                                                         |   
-| DEBUG                       |    false                        | -Xrunjdwp:transport=dt_socket,address=0.0.0.0:8000,server=y,suspend=n |     false                                                         |  |
-| JMX_ENABLED                 |    false                        | -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.rmi.port=5000 -Dcom.sun.management.jmxremote.port=5000 -Djava.rmi.server.hostname=$JMX_RMI_HOST |                                
-| JMX_RMI_HOST                |                                 |                                                              |  0.0.0.0                                                            |  |
-| JAVA_OPTS_\<variable\>=\<value\>       |                      | \<value\>                                                   |                                                              |  |
 
 If environment variables are not sufficient to cover the use-case desired, a custom share-config-custom.xml file can be mounted in /docker-config/share-config-custom.xml.
 
