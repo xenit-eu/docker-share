@@ -1,5 +1,6 @@
 # Alfresco Share in Docker
-Xenit specific Alfresco Share images.
+
+Alfresco Share images built and maintained by Xenit.
 
 ## Images created
 
