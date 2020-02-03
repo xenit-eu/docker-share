@@ -1,4 +1,5 @@
 # Alfresco Share in Docker
+Xenit specific Alfresco Share images.
 
 ## Images created
 
