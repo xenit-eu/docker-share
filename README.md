@@ -1,4 +1,5 @@
-# Alfresco Share in Docker
+# Alfresco Share in Docke
+Alfresco-specific share docker images, compatible with Alfresco versions higher than 4.2.
 
 ## Images created
 
