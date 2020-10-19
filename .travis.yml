@@ -14,7 +14,7 @@ before_cache:
 install:
   - "echo 'buildDate='$(date +%s) >> ~/.gradle/gradle.properties"
 
-script: travis_wait 60 ./gradlew -PrepoName=docker.io/xenit buildDockerImage
+script: travis_wait 60 ./gradlew -PrepoName=docker.io/xenit buildDockerImage --info
 
 deploy:
   provider: script
