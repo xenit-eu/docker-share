@@ -13,7 +13,7 @@ subprojects {
     }
 
     dockerAlfresco {
-        baseImage = { parentImage.getImageId() }
+        baseImage = parentImage.getImageId()
         dockerBuild {
             if (!(project.hasProperty("repoName"))) {
                 ext.repoName = "hub.xenit.eu"
