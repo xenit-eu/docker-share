@@ -1,5 +1,7 @@
 plugins {
-    id "eu.xenit.docker-alfresco" version "4.0.3" apply false
+   id "eu.xenit.docker-alfresco" version "5.0.7" apply false 
+   id "eu.xenit.docker-compose" version "5.0.7" apply false
+   id "eu.xenit.docker" version"5.0.7" apply false
 }
 
 static def calcTags(version) {
@@ -18,9 +20,21 @@ subprojects {
     apply plugin: 'java'
     repositories {
         mavenCentral()
-        jcenter()
         maven {
             url 'https://artifacts.alfresco.com/nexus/content/repositories/public/'
         }
+        
+        // This private repository provides Xenit with Alfresco enterprise artefacts.        
+        // External developers should replace it with their own library repository.
+        if(project.hasProperty('eu.xenit.artifactory.username') && project.hasProperty('eu.xenit.artifactory.password')) {
+	  maven {
+            name 'Xenit artifactory release local'
+            url 'https://artifactory.xenit.eu/artifactory/libs-release'
+            credentials {
+                username property("eu.xenit.artifactory.username")
+                password property("eu.xenit.artifactory.password")
+            }
+          }
+	}
     }
 }

@@ -1,19 +1,25 @@
 language: java
-sudo: required
-dist: trusty
+jdk: openjdk11
 services:
-- docker
+  - docker
+
 cache:
   directories:
-  - "$HOME/.gradle"
-matrix:
-  include:
-  - os: linux
-    jdk: oraclejdk8
-    env:
-    - DOCKER_USER=xenitpublisher
-    - secure: "GxlsL4l2k5x1sjxzqbSs9ngjMkh7j6Ka8cg/973spx7RryUONrCEwGfM0UNaMj1FIamb6Xu+9IdFpwvpDm2bMaiUSDgqFTdzYRcWMnEbuJBFkqV6XQMZ9aFn4JmPKJLxEzpf3o1h6Beo/0ZytWJvakFvmxH9pReTLol067hDoqjHrfPQLqifQJi6EJneEkG2SOYumcsFoogs+qQSther8GT8LwHf7bgLafUB+8/hXBPe8OBmqE1aQIfhW3eBjMWf22VMRm0zmfGWBoQJfunqeaGZXU4CqgImsG5GYF/palW1uTBrwNxOWOVL0CKRXAHXve6Hc+w1esshgRLqEpn8B4M7avj1Xk4Y+MVE9ydOBqfxMgpOgMEeSyVlAaahollc1KYRZf69Cf5G6hVx7mirmIy4enPijMi3Lz27GYPZDJtkNLjsKeiuz3w9vbw9GQ9R88gsxBIuWVPlVECs6z47zG5jJ7+Yn5l1MjA0ja2i5LBTUf0OpqnMa1I6iRdUzltAfIwilnDFR0v5MQX7LEhRU5MxCp1KNV+bR+v1kqB2Ah1d7+oc6pTvY4rYWhIDsGum5fvZbXUbKrN4xXNkMN10b82yvabJttDL6ejRwf5v11np4zRRNlAy4+eUULSwi0TniWDRSwzXVnVaP9XiNBScGXYPLVP5CCTyZ2hSsfCucZQ="
-    before_install:
-    - chmod +x ./gradlew
-    script:
-    - if [[ $TRAVIS_BRANCH = "master" ]] ; then ./gradlew -PrepoName=docker.io/xenit pushDockerImage ; fi
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+install:
+  - "echo 'buildDate='$(date +%s) >> ~/.gradle/gradle.properties"
+
+script: travis_wait 60 ./gradlew -PrepoName=docker.io/xenit buildDockerImage --info
+
+deploy:
+  provider: script
+  script: ./gradlew --stacktrace -PrepoName=docker.io/xenit pushDockerImage
+  cleanup: false
+  on:
+    branch: master
