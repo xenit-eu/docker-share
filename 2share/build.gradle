@@ -12,7 +12,7 @@ subprojects {
     }
 
     dockerAlfresco {
-        baseImage = { parentImage.getImageId() }
+        baseImage = parentImage.getImageId()
         dockerBuild {
             if (!(project.hasProperty("repoName"))) {
                 ext.repoName = "hub.xenit.eu"
@@ -22,7 +22,7 @@ subprojects {
                     "${repoName}" + "/" + namespace + "/" + "alfresco-share-${project.share.flavor}" :
                     "${repoName}" + "/" + "alfresco-share-${project.share.flavor}")
             tags = calcTags(project.share.version)
-            automaticTags = false
+            pull = false
         }
     }
 
