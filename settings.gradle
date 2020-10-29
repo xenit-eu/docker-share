@@ -33,12 +33,23 @@ def includeSubprojectPerVersion(major,flavor) {
 
 rootProject.name = 'docker-share'
 
-includeSubprojectPerVersion("4.","community")
-includeSubprojectPerVersion("5.","community")
-includeSubprojectPerVersion("6.","community")
-if(hasProperty("enterprise")) {
-    includeSubprojectPerVersion("4.","enterprise")
-    includeSubprojectPerVersion("5.","enterprise")
-    includeSubprojectPerVersion("6.","enterprise")
+if(System.getenv("VERSIONS_TO_BUILD")==null || System.getenv("VERSIONS_TO_BUILD").equals("4")) {
+    includeSubprojectPerVersion("4.","community")
+    if(hasProperty("enterprise")) {
+        includeSubprojectPerVersion("4.","enterprise")
+    }
 }
 
+if(System.getenv("VERSIONS_TO_BUILD")==null || System.getenv("VERSIONS_TO_BUILD").equals("5")) {
+    includeSubprojectPerVersion("5.","community")
+    if(hasProperty("enterprise")) {
+        includeSubprojectPerVersion("5.","enterprise")
+    }
+}
+
+if(System.getenv("VERSIONS_TO_BUILD")==null || System.getenv("VERSIONS_TO_BUILD").equals("6")) {
+    includeSubprojectPerVersion("6.","community")
+    if(hasProperty("enterprise")) {
+        includeSubprojectPerVersion("6.","enterprise")
+    }
+}

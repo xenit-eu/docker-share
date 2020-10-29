@@ -7,6 +7,12 @@ before_install:
   - mkdir -p $HOME/.gradle
   - touch $HOME/.gradle/gradle.properties
 
+env:
+  matrix:
+    - VERSIONS_TO_BUILD=4
+    - VERSIONS_TO_BUILD=5
+    - VERSIONS_TO_BUILD=6
+
 install:
   - "echo 'buildDate='$(date +%s) >> ~/.gradle/gradle.properties"
 
