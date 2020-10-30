@@ -15,6 +15,7 @@ script: travis_wait 60 ./gradlew -PrepoName=docker.io/xenit buildDockerImage --i
 deploy:
   provider: script
   script: ./gradlew --stacktrace -PrepoName=docker.io/xenit pushDockerImage
+  skip_cleanup: true
   cleanup: false
   on:
     branch: master
