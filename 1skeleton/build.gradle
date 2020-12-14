@@ -47,13 +47,4 @@ subprojects {
 	dependsOn(copyGlobalResources)
 	dependsOn(copyLocalResources)
     }
-
-    docker {
-        if(System.getenv("DOCKER_USER") != null) {
-            registryCredentials {
-                username = System.getenv("DOCKER_USER")
-                password = System.getenv("DOCKER_PASSWORD")
-            }
-        }
-    }
 }
