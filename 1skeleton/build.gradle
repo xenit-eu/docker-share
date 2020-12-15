@@ -5,6 +5,7 @@ subprojects {
         apply from: "${project.projectDir}/overload.gradle"
 
     def workingDir = "$project.buildDir/dockerbuild"
+
     task copyDockerfile(type: Copy) {
         from("$rootProject.projectDir/src/main/resources/dockerfiles/") {
             include "Dockerfile-skeleton"
@@ -21,22 +22,10 @@ subprojects {
         into workingDir
     }
 
-    buildDockerImage.dependsOn(copyDockerfile)
-    buildDockerImage.dependsOn(copyGlobalResources)
-    buildDockerImage.dependsOn(copyLocalResources)
-
-    dockerFile {
+    dockerBuild {
         dockerFile = file("$workingDir/Dockerfile")
-        dockerBuild {
-            if (!(project.hasProperty("repoName"))) {
-                ext.repoName = "hub.xenit.eu"
-            }
-            def namespace = (project.share.flavor == "enterprise" ? "alfresco-enterprise" : "public");
-            repository = ((repoName == "hub.xenit.eu") ?
-                    "${repoName}" + "/" + namespace + "/" + "alfresco-share-${project.share.flavor}" :
-                    "${repoName}" + "/" + "alfresco-share-${project.share.flavor}")
-            tags = calcTags(project.share.version)
-        }
+        repositories = [calcRepository(project.share.flavor)]
+        tags = calcTags(project.share.version)
     }
 
     buildDockerImage {
@@ -54,14 +43,8 @@ subprojects {
         doFirst {
             println buildArgs
         }
-    }
-
-    docker {
-        if(System.getenv("DOCKER_USER") != null) {
-            registryCredentials {
-                username = System.getenv("DOCKER_USER")
-                password = System.getenv("DOCKER_PASSWORD")
-            }
-        }
+	dependsOn(copyDockerfile)
+	dependsOn(copyGlobalResources)
+	dependsOn(copyLocalResources)
     }
 }

@@ -1,8 +1,11 @@
 plugins {
-   id "eu.xenit.docker-alfresco" version "5.0.7" apply false 
+    id "eu.xenit.docker-alfresco" version "5.1.1" apply false
+    id "be.vbgn.ci-detect" version "0.5.0"
 }
 
-static def calcTags(version) {
+import java.util.stream.Collectors
+
+def calcTags(version) {
     def tags = [
             "${version.major}.${version.minor}.${version.rev}".toString(),
         "${version.major}.${version.minor}".toString()
@@ -11,7 +14,21 @@ static def calcTags(version) {
     if (version.label) {
         tags += "${version.major}.${version.minor}.${version.rev}.${version.label}".toString()
     }
+    // For non-master/non-release builds, change the tags to contain branch and build number
+    def isTestBuild = ci.isCi() && ci.branch != "master" && ci.branch != "release"
+    if(isTestBuild) {
+        tags = tags.stream().map({ it + "-build-${ci.branch}-${ci.buildNumber}" }).collect(Collectors.toList());
+    }
     return tags
+}
+
+def calcRepository(flavor) {
+    def repoName = project.properties.getOrDefault("repoName", "hub.xenit.eu");
+    if(repoName == "hub.xenit.eu") {
+        def namespace = (flavor == "enterprise") ? "alfresco-enterprise" : "public";
+        repoName += "/" + namespace;
+    }
+    return "${repoName}/alfresco-share-${flavor}";
 }
 
 subprojects {
@@ -35,4 +52,17 @@ subprojects {
           }
 	}
     }
+
+    pluginManager.withPlugin('eu.xenit.docker-config') {
+        docker {
+            if (System.getenv("DOCKER_USER") != null) {
+                registryCredentials {
+                    username = System.getenv("DOCKER_USER")
+                    password = System.getenv("DOCKER_PASSWORD")
+                }
+            } else {
+                logger.debug "using default credentials"
+            }
+        }
+    }    
 }
