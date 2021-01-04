@@ -334,7 +334,7 @@
             <name>Alfresco - unauthenticated access</name>
             <description>Access to Alfresco Repository WebScripts that do not require authentication</description>
             <connector-id>alfresco</connector-id>
-            <endpoint-url>${ALFRESCO_PROTOCOL}://${ALFRESCO_HOST}:${ALFRESCO_PORT}/${ALFRESCO_CONTEXT}/s</endpoint-url>
+            <endpoint-url>${ALFRESCO_INTERNAL_PROTOCOL}://${ALFRESCO_INTERNAL_HOST}:${ALFRESCO_INTERNAL_PORT}/${ALFRESCO_INTERNAL_CONTEXT}/s</endpoint-url>
             <identity>none</identity>
          </endpoint>
 
@@ -343,7 +343,7 @@
             <name>Alfresco - user access</name>
             <description>Access to Alfresco Repository WebScripts that require user authentication</description>
             <connector-id>alfresco</connector-id>
-            <endpoint-url>${ALFRESCO_PROTOCOL}://${ALFRESCO_HOST}:${ALFRESCO_PORT}/${ALFRESCO_CONTEXT}/s</endpoint-url>
+            <endpoint-url>${ALFRESCO_INTERNAL_PROTOCOL}://${ALFRESCO_INTERNAL_HOST}:${ALFRESCO_INTERNAL_PORT}/${ALFRESCO_INTERNAL_CONTEXT}/s</endpoint-url>
             <identity>user</identity>
          </endpoint>
 
@@ -352,7 +352,7 @@
             <name>Alfresco Feed</name>
             <description>Alfresco Feed - supports basic HTTP authentication via the EndPointProxyServlet</description>
             <connector-id>http</connector-id>
-            <endpoint-url>${ALFRESCO_PROTOCOL}://${ALFRESCO_HOST}:${ALFRESCO_PORT}/${ALFRESCO_CONTEXT}/s</endpoint-url>
+            <endpoint-url>${ALFRESCO_INTERNAL_PROTOCOL}://${ALFRESCO_INTERNAL_HOST}:${ALFRESCO_INTERNAL_PORT}/${ALFRESCO_INTERNAL_CONTEXT}/s</endpoint-url>
             <basic-auth>true</basic-auth>
             <identity>user</identity>
          </endpoint>

@@ -38,10 +38,14 @@ Environment variables:
 
 | Variable                    |  Default                        | Java variable |
 | --------------------------- | ------------------------------- | --------------------------- |
-| ALFRESCO_HOST               |  alfresco                       |  |
-| ALFRESCO_PORT               |  8080                           |  |
-| ALFRESCO_PROTOCOL           |  http                           |  |
-| ALFRESCO_CONTEXT            |  alfresco                       |  |
+| ALFRESCO_HOST               |  alfresco                       |  Used to generate WebDav links.|
+| ALFRESCO_PORT               |  8080                           |  Used to generate WebDav links.|
+| ALFRESCO_PROTOCOL           |  http                           |  Used to generate WebDav links.|
+| ALFRESCO_CONTEXT            |  alfresco                       |  Used to generate WebDav links.|
+| ALFRESCO_INTERNAL_HOST      |  alfresco                       |  Used for communication share-alfresco.|
+| ALFRESCO_INTERNAL_PORT      |  8080                           |  Used for communication share-alfresco.|
+| ALFRESCO_INTERNAL_PROTOCOL  |  http                           |  Used for communication share-alfresco.|
+| ALFRESCO_INTERNAL_CONTEXT   |  alfresco                       |  Used for communication share-alfresco.|
 
 If environment variables are not sufficient to cover the use-case desired, a custom share-config-custom.xml file can be mounted in /docker-config/share-config-custom.xml.
 
