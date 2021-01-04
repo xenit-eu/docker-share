@@ -323,7 +323,7 @@
    <!-- Uncomment and modify the URL to Activiti Admin Console if required. -->
    <!--
    <config evaluator="string-compare" condition="ActivitiAdmin" replace="true">
-      <activiti-admin-url>http://localhost:8080/alfresco/activiti-admin</activiti-admin-url>
+      <activiti-admin-url>${ALFRESCO_INTERNAL_PROTOCOL}://${ALFRESCO_INTERNAL_HOST}:${ALFRESCO_INTERNAL_PORT}/${ALFRESCO_INTERNAL_CONTEXT}/activiti-admin</activiti-admin-url>
    </config>
    -->
 
@@ -362,7 +362,7 @@
             <name>Activiti Admin UI - user access</name>
             <description>Access to Activiti Admin UI, that requires user authentication</description>
             <connector-id>activiti-admin-connector</connector-id>
-            <endpoint-url>http://localhost:8080/alfresco/activiti-admin</endpoint-url>
+            <endpoint-url>${ALFRESCO_INTERNAL_PROTOCOL}://${ALFRESCO_INTERNAL_HOST}:${ALFRESCO_INTERNAL_PORT}/${ALFRESCO_INTERNAL_CONTEXT}/activiti-admin</endpoint-url>
             <identity>user</identity>
          </endpoint>
          -->
@@ -414,7 +414,7 @@
             <name>Alfresco - user access</name>
             <description>Access to Alfresco Repository WebScripts that require user authentication</description>
             <connector-id>alfrescoCookie</connector-id>
-            <endpoint-url>http://localhost:8080/alfresco/wcs</endpoint-url>
+            <endpoint-url>${ALFRESCO_INTERNAL_PROTOCOL}://${ALFRESCO_INTERNAL_HOST}:${ALFRESCO_INTERNAL_PORT}/${ALFRESCO_INTERNAL_CONTEXT}/wcs</endpoint-url>
             <identity>user</identity>
             <external-auth>true</external-auth>
          </endpoint>
