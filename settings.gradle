@@ -36,9 +36,11 @@ rootProject.name = 'docker-share'
 includeSubprojectPerVersion("4.","community")
 includeSubprojectPerVersion("5.","community")
 includeSubprojectPerVersion("6.","community")
+includeSubprojectPerVersion("7.","community")
 if(hasProperty("enterprise")) {
     includeSubprojectPerVersion("4.","enterprise")
     includeSubprojectPerVersion("5.","enterprise")
     includeSubprojectPerVersion("6.","enterprise")
+    includeSubprojectPerVersion("7.","enterprise")
 }
 
