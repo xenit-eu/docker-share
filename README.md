@@ -19,11 +19,11 @@ This is Xenit's repository for Alfresco Share docker images. A major-minor versi
 Community and enterprise-specific artifacts are then added via the [docker-alfresco plugin](https://github.com/xenit-eu/alfresco-docker-gradle-plugin).
 
 All images are automatically built by [jenkins-2](https://jenkins-2.xenit.eu) and published to [hub.xenit.eu](https://hub.xenit.eu).
-Community images are built by [Travis](https://travis-ci.org/xenit-eu/) and published to [docker hub](https://hub.docker.com/u/xenit).
+Community images are built by [Github actions](https://github.com/features/actions) and published to [docker hub](https://hub.docker.com/u/xenit). Starting with version 6, all share images are public.
 
 ## Image Variants
 
-Multi-container: `share` to be used together with - soon on github - [`docker-alfresco`](https://github.com/xenit-eu/docker-alfresco), [`docker-solr`](https://github.com/xenit-eu/docker-solr), [`postgres`](https://github.com/xenit-eu/docker-postgres).
+Multi-container: `share` to be used together with [`docker-alfresco`](https://github.com/xenit-eu/docker-alfresco), [`docker-solr`](https://github.com/xenit-eu/docker-solr), [`postgres`](https://github.com/xenit-eu/docker-postgres).
 
 ## Environment variables
 
@@ -56,10 +56,6 @@ For example docker-compose files, see [docker-alfresco](https://github.com/xenit
 ## Support & Collaboration
 
 These images are updated via pull requests to the [xenit-eu/docker-share/](https://github.com/xenit-eu/docker-share/) Github-repository.
-
-**Maintained by:**
-
-Roxana Angheluta <roxana.angheluta@xenit.eu>, Lars Vierbergen <lars.vierbergen@xenit.eu>
 
 ### How to build
 
