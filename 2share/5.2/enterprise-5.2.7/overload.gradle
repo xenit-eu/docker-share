@@ -4,12 +4,13 @@ ext {
                     major: 5,
                     minor: 2,
                     rev: 7,
+                    label: 12
             ],
             flavor: 'enterprise'
     ]
 }
 
 dependencies {
-    baseShareWar 'org.alfresco:share:5.2.7@war'
+    baseShareWar 'org.alfresco:share:5.2.7.12@war'
 }
 
