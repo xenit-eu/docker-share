@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * [DOCKER-275] Introduce variables for direct communication share-alfresco. Make sure that ALFRESCO_INTERNAL_HOST is set to the correct name of the alfresco service/container.
 * [DEVEM-478] Share 7.0.0
 * [DOCKER-392] Share 7.0.1.2
+* [DOCKER-395] Share 7.0.1.1
 
 ### Changed
 
