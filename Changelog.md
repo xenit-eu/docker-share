@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * [ALFREDOPS-687] Add image for 6.2.2.
 * [DOCKER-275] Introduce variables for direct communication share-alfresco. Make sure that ALFRESCO_INTERNAL_HOST is set to the correct name of the alfresco service/container.
 * [DEVEM-478] Share 7.0.0
+* [DOCKER-392] Share 7.0.1.2
+
 ### Changed
 
 - [IDWALF52-65] Update 5.2.7 to 5.2.7.12
