@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 
 ### Added
+* [DOCKER-406] Share 7.2.1
+
+## [v1.2.0] 2022-02-09
+
+### Added
 * [DOCKER-402] Share 7.1.0
 
 ## [v1.1.0] 2021-09-10
